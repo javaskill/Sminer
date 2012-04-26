@@ -3,7 +3,6 @@
  */
 package org.infinitybots.bot.smithing.methods;
 
-import org.infinitybots.bot.smithing.data.Bar;
 import org.infinitybots.bot.smithing.data.SmithItem;
 import org.infinitybots.methods.Interfaces;
 import org.infinitybots.methods.Objects;
@@ -11,10 +10,8 @@ import org.infinitybots.wrappers.RSObject;
 import org.infinitybots.wrappers.RSWidget;
 import org.infinitybots.wrappers.RSWidgetChild;
 import org.powerbot.game.api.methods.Walking;
-import org.powerbot.game.api.methods.Widgets;
 import org.powerbot.game.api.methods.interactive.Players;
 import org.powerbot.game.api.util.Time;
-import org.powerbot.game.api.wrappers.widget.*;
 
 /**
  * @author Brad

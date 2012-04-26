@@ -1,20 +1,24 @@
 package org.infinitybots.bot.smithing.data;
 
 import org.powerbot.game.api.methods.Calculations;
-import org.powerbot.game.api.methods.interactive.Players;
-import org.powerbot.game.api.util.Random;
 import org.powerbot.game.api.wrappers.Tile;
+import org.powerbot.game.api.wrappers.map.TilePath;
 
 public enum Furnace {
 	
-	AL_KHARID("Al Kharid", new Tile(3275, 3186, 0), new Tile(3270,3167,0), 11666);
+	AL_KHARID("Al Kharid", new TilePath(new Tile[] { new Tile(3270,3167,0), new Tile(3277, 3178, 0), new Tile(3275, 3186, 0) }),
+			new Tile(3275, 3186, 0), new Tile(3270,3167,0), 11666);
+	final TilePath toFurnace;
+	final TilePath toBank;
 	
 	final String location;
 	final Tile tile;
 	final Tile bankTile;
 	final int ID;
 	
-	Furnace(final String location, final Tile tile,final Tile bankTile, final int ID){
+	Furnace(final String location, final TilePath toFurnace, final Tile tile,final Tile bankTile, final int ID){
+		this.toFurnace = toFurnace;
+		toBank = toFurnace.reverse();
 		this.location = location;
 		this.tile = tile;
 		this.bankTile = bankTile;
@@ -53,32 +57,9 @@ public enum Furnace {
 	 */
 	public Tile getNext(boolean tofurn){
 		if(tofurn){
-			final Tile tile = getTile();
-			final Tile bankTile = getBankTile();
-			if(Calculations.distanceTo(tile) < 14){ // On screen
-				return tile;
-			} else if(Calculations.distanceTo(bankTile) < 14){
-				final Tile plr = Players.getLocal().getLocation();
-				final int diffY = tile.getY() - bankTile.getY(), diffX = tile.getX() - bankTile.getX();
-				final int toX = plr.getX() + (diffX/2), toY = plr.getY()+(diffY/2);
-				return new Tile(toX+Random.nextInt(-3, 3), toY+Random.nextInt(-3, 3), 0);
-			} else {
-				System.out.println("We are not near "+getLocation() +" furnace.");
-			}
+			return toFurnace.getNext();
 		} else {
-			final Tile tile = getTile();
-			final Tile bankTile = getBankTile();
-			if(Calculations.distanceTo(bankTile) < 14){ // On screen
-				return bankTile;
-			} else if(Calculations.distanceTo(tile) < 14){
-				final Tile plr = Players.getLocal().getLocation();
-				final int diffY = bankTile.getY() - tile.getY(), diffX = bankTile.getX() - tile.getX();
-				final int toX = plr.getX() + (diffX/2), toY = plr.getY()+(diffY/2);
-				return new Tile(toX+Random.nextInt(-3, 3), toY+Random.nextInt(-3, 3), 0);
-			} else {
-				System.out.println("We are not near "+getLocation() + " bank.");
-			}
+			return toBank.getNext();
 		}
-		return null;
 	}
 }

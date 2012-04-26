@@ -20,7 +20,7 @@ public class Smelting {
 			return;
 		RSObject obj = Objects.getNearest(SmithSettings.furnace.getID());
 		if(obj != null){
-			obj.click(true);
+			obj.interact("Smelt");
 		}
 	}
 	public static void smelt(Bar bar){

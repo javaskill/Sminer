@@ -53,6 +53,7 @@ public class BankTask implements Task {
 		}
 	}
 	public void SmeltBankTask(){
+		System.out.println("Smelt Bank Task.");
 		if(!Bank.isOpen()){
 			Bank.open();
 		} else {
@@ -60,8 +61,9 @@ public class BankTask implements Task {
 			if(bar.hasRequired() && count == 28){
 				Bank.close();
 				return;
-			} else if (count > 0 && bar.hasRequired()){
+			} else if (count > 0 && !bar.hasRequired()){
 				Bank.depositAll();
+				Time.sleep(350,600);
 			}
 			if(Inventory.getCount() == 0){
 				Ore primary = bar.getPrimary();

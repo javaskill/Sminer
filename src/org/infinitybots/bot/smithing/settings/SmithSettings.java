@@ -15,7 +15,7 @@ public class SmithSettings {
 	
 	public static SmithItem item = null;
 	
-	public static Furnace furnace = null;
+	public static Furnace furnace = Furnace.AL_KHARID;
 	
-	public static Bar type = null;
+	public static Bar type = Bar.GOLD;
 }

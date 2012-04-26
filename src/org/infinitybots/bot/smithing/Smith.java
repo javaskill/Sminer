@@ -2,11 +2,11 @@ package org.infinitybots.bot.smithing;
 
 import java.util.ArrayList;
 
-import org.infinitybots.bot.mining.states.bank.BankCondition;
 import org.infinitybots.bot.smithing.data.Bar;
 import org.infinitybots.bot.smithing.data.Furnace;
 import org.infinitybots.bot.smithing.data.SmithItem;
 import org.infinitybots.bot.smithing.settings.SmithSettings;
+import org.infinitybots.bot.smithing.strategies.bank.BankCondition;
 import org.infinitybots.bot.smithing.strategies.bank.BankTask;
 import org.infinitybots.bot.smithing.strategies.forge.SmithCondition;
 import org.infinitybots.bot.smithing.strategies.forge.SmithTask;
@@ -28,6 +28,7 @@ public class Smith {
 	public void setup(final String item){
 		SmithSettings.forge = true;
 		SmithSettings.item = SmithItem.get(item);
+		
 		add(new SmithCondition(),new SmithTask());
 		add(new TravelCondition(), new TravelTask());
 		add(new BankCondition(), new BankTask());
@@ -36,6 +37,7 @@ public class Smith {
 		SmithSettings.forge = false;
 		SmithSettings.furnace = Furnace.get(location);
 		SmithSettings.type = Bar.getType(type);
+		
 		add(new SmeltCondition(), new SmeltTask());
 		add(new TravelCondition(), new TravelTask());
 		add(new BankCondition(), new BankTask());

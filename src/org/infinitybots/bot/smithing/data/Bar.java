@@ -1,8 +1,7 @@
 package org.infinitybots.bot.smithing.data;
 
-import java.net.Authenticator.RequestorType;
-
 import org.powerbot.game.api.methods.tab.Inventory;
+import org.powerbot.game.api.util.Time;
 
 /**
  * 
@@ -11,21 +10,23 @@ import org.powerbot.game.api.methods.tab.Inventory;
  */
 public enum Bar {
 	
-	BRONZE("Bronze bar", 2349, Ore.COPPER, Ore.TIN),
-	IRON("Iron bar", 2351, Ore.IRON),
-	STEEL("Steel bar", 2353, Ore.IRON, Ore.COAL, Ore.COAL),
-	GOLD("Gold bar", 2357, Ore.GOLD),
-	MITHRIL("Mithril bar", 2359, Ore.MITHRIL, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL),
-	ADAMANT("Adamant bar", 2361, Ore.ADAMANTITE, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL),
-	RUNE("Rune bar", 2363, Ore.RUNITE, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL);
+	BRONZE("Bronze bar", 2349, true, Ore.COPPER, Ore.TIN),
+	IRON("Iron bar", 2351, false, Ore.IRON),
+	STEEL("Steel bar", 2353, true, Ore.IRON, Ore.COAL, Ore.COAL),
+	GOLD("Gold bar", 2357, false, Ore.GOLD),
+	MITHRIL("Mithril bar", 2359, true, Ore.MITHRIL, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL),
+	ADAMANT("Adamant bar", 2361, true, Ore.ADAMANTITE, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL),
+	RUNE("Rune bar", 2363, true, Ore.RUNITE, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL, Ore.COAL);
 	
 	private final Ore[] required;
 	
+	private final boolean hasSecondary;
 	private final String name;
 	private final int ID;
 	
-	Bar(final String name, final int ID, Ore... required){
+	Bar(final String name, final int ID, final boolean hasSeconday,Ore... required){
 		this.required = required;
+		this.hasSecondary = hasSeconday;
 		this.name = name;
 		this.ID = ID;
 	}
@@ -38,28 +39,32 @@ public enum Bar {
 	public int getID(){
 		return ID;
 	}
-	public boolean hasRequired(){
+	public boolean hasRequired(){ 
+		try {
 		final int primary = required[0].getID();
 		if(Inventory.getCount(primary) > 0){
-			if(hasSecondary()){
+			if(!hasSecondary()){
 				return true;
 			}
 			final int secondary = required[1].getID();
 			return Inventory.getCount(secondary) >= required.length-1;
 		}
+		} catch(Exception e) {e.printStackTrace();Time.sleep(5000);}
 		return false;
 	}
 	public Ore getPrimary(){
 		return required[0];
 	}
 	public boolean hasSecondary(){
-		return required.length > 1;
+		return hasSecondary;
 	}
 	public Ore getSecondary(){
+		if(hasSecondary())
 		return required[1];
+		return null;
 	}
 	public int getRequiredPrimaryCount(){
-		return roundDown(getPrimary().getID() / 28);
+		return roundDown((required.length-1)/ 28);
 	}
 	public int roundDown(final double i){
 		return (int)(i/1000 * 1000);
