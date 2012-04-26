@@ -11,9 +11,11 @@ import org.infinitybots.bot.smithing.data.*;
  */
 public class SmithSettings {
 	
-	public static boolean smithing = false;
+	public static boolean forge = false;
 	
-	public static SmithItem item = SmithItem.IRON_SCIMITAR;
+	public static SmithItem item = null;
 	
+	public static Furnace furnace = null;
 	
+	public static Bar type = null;
 }

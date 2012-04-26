@@ -6,6 +6,7 @@ package org.infinitybots.bot;
 import java.awt.Graphics;
 
 import org.infinitybots.bot.gui.Gui;
+import org.infinitybots.wrappers.GeItem;
 import org.powerbot.concurrent.strategy.Strategy;
 import org.powerbot.game.api.ActiveScript;
 import org.powerbot.game.api.Manifest;
@@ -40,7 +41,7 @@ public class InfinityMineAndSmith extends ActiveScript implements PaintListener 
 
 	@Override
 	public void onRepaint(Graphics g) {
-
+		
 	}
 	class Wait implements Runnable {
 

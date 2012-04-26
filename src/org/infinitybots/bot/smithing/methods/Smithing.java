@@ -3,6 +3,7 @@
  */
 package org.infinitybots.bot.smithing.methods;
 
+import org.infinitybots.bot.smithing.data.Bar;
 import org.infinitybots.bot.smithing.data.SmithItem;
 import org.infinitybots.methods.Interfaces;
 import org.infinitybots.methods.Objects;

@@ -55,7 +55,7 @@ public class Gui extends javax.swing.JFrame {
            }
        });
 
-       ForgeAreaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+       ForgeAreaComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Varrock West Bank" }));
 
        javax.swing.GroupLayout ForgeLayout = new javax.swing.GroupLayout(Forge);
        Forge.setLayout(ForgeLayout);
@@ -105,7 +105,7 @@ public class Gui extends javax.swing.JFrame {
            }
        });
 
-       SmeltArea.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+       SmeltArea.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Al Kharid", "Edgeville" }));
 
        javax.swing.GroupLayout SmeltLayout = new javax.swing.GroupLayout(Smelt);
        Smelt.setLayout(SmeltLayout);
@@ -156,11 +156,15 @@ public class Gui extends javax.swing.JFrame {
    }
 
    private void SmeltStartActionPerformed(java.awt.event.ActionEvent evt) {
-	   
+	   final String location = (String)SmeltArea.getSelectedItem();
+	   final String type = (String) SmeltTypeComboBox.getSelectedItem();
+	   setup.setup(location, type);
+	   done = true;
+	   setVisible(false);
    }
-
+   
    private void ForgeStartActionPerformed(java.awt.event.ActionEvent evt) {
-	   String item = (String) (ForgeTypeComboBox.getSelectedItem()+" "+ItemComboBox.getSelectedItem());
+	   final String item = (String) (ForgeTypeComboBox.getSelectedItem()+" "+ItemComboBox.getSelectedItem());
 	   setup.setup(item);
 	   done = true;
 	   setVisible(false);
